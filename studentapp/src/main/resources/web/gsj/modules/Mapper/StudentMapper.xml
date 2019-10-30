@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.gsj.modules.Mapper.StudentMapper">
+  <resultMap id="BaseResultMap" type="web.gsj.modules.Entity.Student">
+    <id column="stu_id" jdbcType="VARCHAR" property="stuId" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+    <result column="stu_phone" jdbcType="VARCHAR" property="stuPhone" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="stu_grade" jdbcType="VARCHAR" property="stuGrade" />
+    <result column="stu_degree" jdbcType="VARCHAR" property="stuDegree" />
+    <result column="stu_major" jdbcType="VARCHAR" property="stuMajor" />
+    <result column="stu_department" jdbcType="VARCHAR" property="stuDepartment" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stu_id, stu_name, stu_phone, sex, stu_grade, stu_degree, stu_major, stu_department, 
+    user_id
+  </sql>
+  <select id="selectByExample" parameterType="web.gsj.modules.Entity.StudentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where stu_id = #{stuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from student
+    where stu_id = #{stuId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="web.gsj.modules.Entity.StudentExample">
+    delete from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="web.gsj.modules.Entity.Student">
+    insert into student (stu_id, stu_name, stu_phone, 
+      sex, stu_grade, stu_degree, 
+      stu_major, stu_department, user_id
+      )
+    values (#{stuId,jdbcType=VARCHAR}, #{stuName,jdbcType=VARCHAR}, #{stuPhone,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{stuGrade,jdbcType=VARCHAR}, #{stuDegree,jdbcType=VARCHAR}, 
+      #{stuMajor,jdbcType=VARCHAR}, #{stuDepartment,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="web.gsj.modules.Entity.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="stuName != null">
+        stu_name,
+      </if>
+      <if test="stuPhone != null">
+        stu_phone,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="stuGrade != null">
+        stu_grade,
+      </if>
+      <if test="stuDegree != null">
+        stu_degree,
+      </if>
+      <if test="stuMajor != null">
+        stu_major,
+      </if>
+      <if test="stuDepartment != null">
+        stu_department,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuName != null">
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPhone != null">
+        #{stuPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGrade != null">
+        #{stuGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="stuDegree != null">
+        #{stuDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="stuMajor != null">
+        #{stuMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="stuDepartment != null">
+        #{stuDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="web.gsj.modules.Entity.StudentExample" resultType="java.lang.Long">
+    select count(*) from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update student
+    <set>
+      <if test="record.stuId != null">
+        stu_id = #{record.stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuName != null">
+        stu_name = #{record.stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuPhone != null">
+        stu_phone = #{record.stuPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuGrade != null">
+        stu_grade = #{record.stuGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuDegree != null">
+        stu_degree = #{record.stuDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuMajor != null">
+        stu_major = #{record.stuMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuDepartment != null">
+        stu_department = #{record.stuDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update student
+    set stu_id = #{record.stuId,jdbcType=VARCHAR},
+      stu_name = #{record.stuName,jdbcType=VARCHAR},
+      stu_phone = #{record.stuPhone,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      stu_grade = #{record.stuGrade,jdbcType=VARCHAR},
+      stu_degree = #{record.stuDegree,jdbcType=VARCHAR},
+      stu_major = #{record.stuMajor,jdbcType=VARCHAR},
+      stu_department = #{record.stuDepartment,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="web.gsj.modules.Entity.Student">
+    update student
+    <set>
+      <if test="stuName != null">
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPhone != null">
+        stu_phone = #{stuPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGrade != null">
+        stu_grade = #{stuGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="stuDegree != null">
+        stu_degree = #{stuDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="stuMajor != null">
+        stu_major = #{stuMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="stuDepartment != null">
+        stu_department = #{stuDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stu_id = #{stuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.gsj.modules.Entity.Student">
+    update student
+    set stu_name = #{stuName,jdbcType=VARCHAR},
+      stu_phone = #{stuPhone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      stu_grade = #{stuGrade,jdbcType=VARCHAR},
+      stu_degree = #{stuDegree,jdbcType=VARCHAR},
+      stu_major = #{stuMajor,jdbcType=VARCHAR},
+      stu_department = #{stuDepartment,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
+    where stu_id = #{stuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -7,8 +7,6 @@ public class User {
 
     private String userPwd;
 
-    private String stuId;
-
     public Integer getUserId() {
         return userId;
     }
@@ -31,13 +29,5 @@ public class User {
 
     public void setUserPwd(String userPwd) {
         this.userPwd = userPwd == null ? null : userPwd.trim();
-    }
-
-    public String getStuId() {
-        return stuId;
-    }
-
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
     }
 }

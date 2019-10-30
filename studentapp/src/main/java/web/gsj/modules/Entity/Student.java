@@ -17,6 +17,8 @@ public class Student {
 
     private String stuDepartment;
 
+    private Integer userId;
+
     public String getStuId() {
         return stuId;
     }
@@ -79,5 +81,13 @@ public class Student {
 
     public void setStuDepartment(String stuDepartment) {
         this.stuDepartment = stuDepartment == null ? null : stuDepartment.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
