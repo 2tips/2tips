@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="/assets/css/app.css">
     <script src="/assets/js/jquery.min.js"></script>
-
+    <script src="/assets/js/jquery.cookie.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -38,6 +38,8 @@
                         data:{user:JSON.stringify(user)},
                         success:function (result) {
                             if (result != "" && result == "success"){
+                                // $.cookie('userName',user.userName,{path:'/'});
+                                $.cookie('userName',user.userName,{path:'/'});
                                 window.location.href="/index.html";
                             }else if (result == "nodata"){
                                 alert("无需要处理的数据!请重试!");
@@ -52,6 +54,7 @@
             })
         })
     </script>
+
 </head>
 
 <body data-type="login">
@@ -85,7 +88,7 @@
                         <input type="password" class="tpl-form-input" id="pwd" placeholder="请输入密码">
                     </div>
                     <div class="am-form-group tpl-login-remember-me">
-                        <a href="/sys/register">注册</a>
+                        <a href="/register.html">注册</a>
                     </div>
                     <div class="am-form-group">
                         <button type="button" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn" id="loginBtn">登录</button>
@@ -96,7 +99,6 @@
     </div>
     <script src="/assets/js/amazeui.min.js"></script>
     <script src="/assets/js/app.js"></script>
-
 </body>
 
 </html>

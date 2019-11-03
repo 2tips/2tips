@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="../assets/js/jquery-1.7.2.js"></script>
+    <!--<script src="/assets/js/jquery.min.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-3.0.0.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-migrate-3.1.0.js"></script>-->
+    <script src="../assets/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="../assets/js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/css/admin-all.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/ui-lightness/jquery-ui-1.8.22.custom.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/formui.css"/>
+    <script type="text/javascript" src="../assets/js/tb.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var username = "";
+            if ($.cookie('userName')){
+                username = $.cookie('userName');
+            }
+            $.ajax({
+                type:'POST',
+                url:'/user/getStudentInfo',
+                data:{username:username},
+                success:function (data) {
+                    var va = '<td>'+data.item[0].stuName+'</td>'
+                        +'<td>'+data.item[0].stuPhone+'</td>'
+                        +'<td>'+data.item[0].sex+'</td>'
+                        +'<td>'+data.item[0].stuGrade+'</td>'
+                        +'<td>'+data.item[0].stuDegree+'</td>'
+                        +'<td>'+data.item[0].stuMajor+'</td>'
+                        +'<td>'+data.item[0].stuDepartment+'</td>';
+
+                    $("#studentInfo").append('<tr>'+va+'<tr>');
+                }
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        function submit() {
+            var stuName = $("#stuName").val();
+            var stuPhone = $("#stuPhone").val();
+            var sex = $("#sex").val();
+            var stuGrade = $("#stuGrade").val();
+            var stuDegree = $("#stuDegree").val();
+            var stuMajor = $("#stuMajor").val();
+            var stuDepartment = $("#stuDepartment").val();
+
+        }
+    </script>
+
+    <link rel="stylesheet" href="../assets/css/admin-all.css">
+
+</head>
+<body>
+<table class="tbform" >
+    <thead>
+    <tr>
+        <th>学生姓名</th>
+        <th>电话</th>
+        <th>性别</th>
+        <th>年级</th>
+        <th>学位</th>
+        <th>专业</th>
+        <th>系</th>
+    </tr>
+    </thead>
+    <tbody id="studentInfo">
+    </tbody>
+</table>
+
+    姓名：<input type="text" id="stuName"><br>
+    电话：<input type="text" id="stuPhone"><br>
+    性别：<input type="text" id="sex"><br>
+    年级：<select id="stuGrade">
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+          </select><br>
+    学位：<input type="text" id="stuDegree"><br>
+    专业：<input type="text" id="stuMajor"><br>
+    系  ：<input type="text" id="stuDepartment"><br>
+
+    <input type="button" value="修改" id="user_button" onclick="submit()">
+
+</body>
+</html>

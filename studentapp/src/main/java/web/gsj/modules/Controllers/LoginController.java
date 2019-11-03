@@ -14,6 +14,8 @@ import web.gsj.modules.Utils.Constants;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -27,8 +29,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public String login(HttpSession session,String user) throws IOException {
-        Cookie cookie = new Cookie(Constants.COOKIE_USER,user);
+    public String login(HttpSession session, String user) throws IOException {
         if (user == null || "".equals(user)){
             return "nodata";
         }else {
@@ -56,29 +57,21 @@ public class LoginController {
         }
     }
 
-//    @RequestMapping("/login")
-//    @ResponseBody
-//    public String login(HttpSession session,String userName,String pwd){
-//        if (userName == null || "".equals(userName)){
-//            return "nodata";
-//        }else {
-//            UserExample example = new UserExample();
-//            UserExample.Criteria criteria = example.createCriteria();
-//            criteria.andUserNameLike(userName);
-//            criteria.andUserPwdLike(pwd);
-//            List<User> users = loginService.selectByExample(example);
-//            try {
-//                if (users != null && users.size()>0){
-//                    session.setAttribute(Constants.SESSION_USER,users.get(0));
-//                    return "success";
-//                }else {
-//                    return "uperror";
-//                }
-//            } catch (Exception e) {
-//                return "failed";
-//            }
-//        }
-//    }
+    @RequestMapping("/register")
+    @ResponseBody
+    public String register(String user)throws IOException{
+        if (user == null || "".equals(user)){
+            return "nodata";
+        } else {
+            ObjectMapper userObject = new ObjectMapper();
+            User userObj = userObject.readValue(user,User.class);
+
+//             注册成功返回“success”
+//             失败则返回“failed”
+            return loginService.register(userObj.getUserName(),userObj.getUserPwd());
+        }
+    }
+
 
     @RequestMapping("/test")
     public String test(){

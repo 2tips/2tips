@@ -17,15 +17,8 @@ public interface LoginService {
 /**
     注册
 */
+     String register(String username,String pwd);
 
-
-     void addToUser(String username,String pwd);
-//    {
-//        User user = new User();
-//        user.setUserName(username);
-//        user.setUserPwd(pwd);
-//        userMapper.insert(user);
-//    }
 
 
 

@@ -67,6 +67,7 @@
   <sql id="Base_Column_List">
     user_id, user_name, user_pwd
   </sql>
+
   <select id="selectByExample" parameterType="web.gsj.modules.Entity.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

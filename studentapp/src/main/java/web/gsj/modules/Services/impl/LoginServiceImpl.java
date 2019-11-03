@@ -19,11 +19,25 @@ public class LoginServiceImpl implements LoginService {
         return userMapper.selectByExample(userExample);
     }
 
-    public void addToUser(String username,String pwd){
+    /**
+     * 注册
+     * */
+    public String register(String username,String pwd){
         User user = new User();
         user.setUserName(username);
         user.setUserPwd(pwd);
-        userMapper.insert(user);
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUserNameLike(username);
+        criteria.andUserPwdLike(pwd);
+        List<User> users = userMapper.selectByExample(userExample);
+        if (users == null || users.size() == 0){
+            userMapper.insertSelective(user);
+//            userMapper.insert(user);
+            return "success";
+        }else {
+            return "failed";
+        }
     }
 
 }

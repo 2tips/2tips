@@ -9,41 +9,48 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class StudentService {
+public interface StudentService {
 
-    @Resource
-    private StudentMapper studentMapper;
+     /**
+      * 查找
+      */
+     List<Student> selectByExample(StudentExample studentExample);
 
-    public List<Student> selectByExample(StudentExample studentExample){
-        return studentMapper.selectByExample(studentExample);
-    }
+     /**
+      * 添加个人信息
+      * @param user_id
+      * @param stu_name
+      * @param stu_phone
+      * @param sex
+      * @param stu_grade
+      * @param stu_degree
+      * @param stu_major
+      * @param stu_department
+      */
+     void addStudentInfo(Integer user_id,String stu_name,String stu_phone,String sex,
+                               String stu_grade,String stu_degree,String stu_major,String stu_department);
 
-    public void addStudentInfo(Integer user_id,String stu_name,String stu_phone,String sex,
-                               String stu_grade,String stu_degree,String stu_major,String stu_department){
-        Student student = new Student();
-        student.setStuId(user_id.toString());
-        student.setStuName(stu_name);
-        student.setStuPhone(stu_phone);
-        student.setSex(sex);
-        student.setStuGrade(stu_grade);
-        student.setStuDegree(stu_degree);
-        student.setStuMajor(stu_major);
-        student.setStuDepartment(stu_department);
-        studentMapper.insertSelective(student);
-    }
+     /**
+      * 修改个人信息
+      * @param user_id
+      * @param stu_id
+      * @param stu_name
+      * @param stu_phone
+      * @param sex
+      * @param stu_grade
+      * @param stu_degree
+      * @param stu_major
+      * @param stu_department
+      */
+     void updateStudentInfo(Integer user_id,String stu_id,String stu_name,String stu_phone,String sex,
+                                  String stu_grade,String stu_degree,String stu_major,String stu_department);
 
-    public void updateStudentInfo(Integer user_id,String stu_id,String stu_name,String stu_phone,String sex,
-                                  String stu_grade,String stu_degree,String stu_major,String stu_department){
-        Student student = new Student();
-        student.setStuId(user_id.toString());
-        student.setStuName(stu_name);
-        student.setStuPhone(stu_phone);
-        student.setSex(sex);
-        student.setStuGrade(stu_grade);
-        student.setStuDegree(stu_degree);
-        student.setStuMajor(stu_major);
-        student.setStuDepartment(stu_department);
-        studentMapper.updateByPrimaryKeySelective(student);
-    }
+     /**
+      * 展示个人信息
+      * @param username
+      * @return
+      */
+     Student showStudentInfo(String username);
+
 
 }
